@@ -9,7 +9,7 @@
 Adafruit_SSD1306 display(OLED_RESET);
 
 RGBLed led1(2, 3, 4, RGBLed::COMMON_CATHODE);
-RGBLed led2(7, 6, 5, RGBLed::COMMON_CATHODE);
+RGBLed led2(8, 6, 7, RGBLed::COMMON_CATHODE);
 
 Button oneUp(10);
 Button oneDown(9);
@@ -74,6 +74,7 @@ void loop() {
     
   if (oneUp.isPressed() and oneDown.isPressed()) {
       colorPos2++;
+      Serial.println("both 1");
       if (oneUp.pressedFor(2000) and oneDown.pressedFor(2000)) {
         startingLife1 = 20;  
       }
@@ -81,25 +82,30 @@ void loop() {
   
   else if (oneUp.isPressed() and !oneDown.isPressed()) {
       startingLife1++;
+      Serial.println("up 1");
   }
 
   else if (!oneUp.isPressed() and oneDown.isPressed()) {
       startingLife1--;
+      Serial.println("down 1");
   }
 
   else if (twoUp.isPressed() and twoDown.isPressed()) {
     colorPos1++;
+    Serial.println("both 1");
     if (twoUp.pressedFor(2000) and twoDown.pressedFor(2000)) {
       startingLife2 = 20;
     }
   }
 
   else if (twoUp.isPressed() and !twoDown.isPressed()) {
-    startingLife2++;
+    startingLife2--;
+    Serial.println("down 2");
   }
 
   else if (!twoUp.isPressed() and twoDown.isPressed()) {
-    startingLife2--;
+    startingLife2++;
+    Serial.println("up 2");
   }
 
   else if (oneUp.pressedFor(5000) or twoUp.pressedFor(5000)) {
@@ -152,10 +158,10 @@ void loop() {
     led2.setColor(RGBLed::MAGENTA);
   }
   if (colorPos1 == 5) {
-    led1.setColor(255, 255, 255); // WHITE
+    led1.setColor(250, 227, 155);
   }
   if (colorPos2 == 5) {
-    led2.setColor(255, 255, 255); // WHITE
+    led2.setColor(250, 227, 155);
   }
 
   if (oneUp.isPressed() or oneDown.isPressed() or twoUp.isPressed() or twoDown.isPressed()) {
